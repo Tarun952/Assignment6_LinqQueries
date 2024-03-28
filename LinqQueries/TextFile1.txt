@@ -1,0 +1,41 @@
+﻿Implementing LINQ queries to perform operations
+
+a. Retrieve all books authored by a specific author
+
+public static List<Book> GetBooksByAuthor(List<Book> books, string authorName)
+{
+    var filteredBooks = books.Where(b => b.Author == authorName).ToList();
+    return filteredBooks;
+}
+
+
+b. Retrieve the top-rated books based on user ratings
+
+public static List<Book> GetTopRatedBooks(List<Book> books, int count)
+{
+    var sortedBooks = books.OrderByDescending(b => b.AverageRating).Take(count).ToList();
+    return sortedBooks;
+}
+
+
+c. Filter books by genre and publish year
+
+public static List<Book> GetBooksByGenreAndPublishYear(List<Book> books, string genre, int publishYear)
+{
+    var filteredBooks = books.Where(b => b.Genre == genre && b.PublishYear == publishYear).ToList();
+    return filteredBooks;
+}
+
+
+d. Calculate the average rating for books published by a specific publisher
+
+public static double GetAverageRatingByPublisher(List<Book> books, string publisher)
+{
+    var publisherBooks = books.Where(b => b.Publisher == publisher);
+    if (!publisherBooks.Any())
+    {
+        return 0.0; // Handle no books found for the publisher
+    }
+    double averageRating = publisherBooks.Average(b => b.AverageRating);
+    return averageRating;
+}
